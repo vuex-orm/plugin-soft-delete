@@ -2,6 +2,8 @@
 
 ... in progress
 
+```
 npm install
 npm i -g vue-build
 npm run test
+```
