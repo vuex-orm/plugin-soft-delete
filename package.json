@@ -2,7 +2,7 @@
   "name": "@vuex-orm/plugin-soft-delete",
   "version": "1.1.0",
   "description": "Vuex ORM plugin adding soft delete capability. Based on an original idea from Conan Crawford.",
-  "author": "Conan Crawford <cj@cjcrawford.com> / Thomas Villaren <tvillaren@gmail.com>",
+  "author": "Thomas Villaren <tvillaren@gmail.com>",
   "main": "dist/index.js",
   "devDependencies": {
     "@babel/core": "^7.3.4",
