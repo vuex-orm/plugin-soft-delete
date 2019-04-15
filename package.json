@@ -1,5 +1,5 @@
 {
-  "name": "vuexorm-softdelete-plugin",
+  "name": "@vuex-orm/plugin-soft-delete",
   "version": "1.1.0",
   "description": "Vuex ORM plugin adding soft delete capability. Based on an original idea from Conan Crawford.",
   "author": "Conan Crawford <cj@cjcrawford.com> / Thomas Villaren <tvillaren@gmail.com>",
@@ -59,20 +59,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vuex-orm/plugin-change-flags.git"
+    "url": "git+https://github.com/vuex-orm/plugin-soft-delete.git"
   },
   "keywords": [
     "ORM",
     "Vuex",
     "Vuex",
     "ORM",
-    "isDirty",
-    "isNew",
+    "soft-delete",
     "change-tracking"
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/vuex-orm/plugin-change-flags/issues"
+    "url": "https://github.com/vuex-orm/plugin-soft-delete/issues"
   },
-  "homepage": "https://github.com/vuex-orm/plugin-change-flags#readme"
+  "homepage": "https://github.com/vuex-orm/plugin-soft-delete#readme"
 }
