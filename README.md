@@ -6,7 +6,7 @@
 
 <h3 align="center">This project is supported by <a href="https://www.generativeobjects.com/" target="_blank">Generative Objects</a></h3>
 
-[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
+[![Build Status](https://travis-ci.org/vuex-orm/plugin-soft-delete.svg?branch=master)](https://travis-ci.org/vuex-orm/plugin-soft-delete) [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
 
 This is a plugin for the [Vuex-ORM](https://github.com/vuex-orm/vuex-orm) library.
 
