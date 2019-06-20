@@ -203,7 +203,7 @@ export default {
                             .get();
                         result = result.concat(elts);
                     });
-                    return result;
+                    return [... new Set(result)];
                 }
             };
         };
