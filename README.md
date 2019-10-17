@@ -12,22 +12,18 @@ This is a plugin for the [Vuex-ORM](https://github.com/vuex-orm/vuex-orm) librar
 
 ## Installation
 
-Simply reference the github project in your `package.json`
+Install this plugin via npm or yarn.
 
-```javascript
-dependencies: {
-    ...
-    "vuexorm-softdelete-plugin": "git+https://github.com/tvillaren/vuexorm-softdelete-plugin.git"
-    ...
-}
+```bash
+$ npm install @vuex-orm/plugin-soft-delete
+
+$ yarn add @vuex-orm/plugin-soft-delete
 ```
-
-and run `npm install`.
 
 Then, you need to install the plugin as any VuexORM plugin. In your store initialization code, simply add:
 
 ```javascript
-import VuexORMSoftDeletePlugin from 'vuexorm-softdelete-plugin';
+import VuexORMSoftDeletePlugin from '@vuex-orm/plugin-soft-delete';
 ```
 
 and then
