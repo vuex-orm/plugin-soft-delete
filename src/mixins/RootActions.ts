@@ -7,12 +7,12 @@ import {
 
 export default function RootActions(
   context: VuexORMSoftDelete,
-  actions: RootActionsContract
+  rootActions: RootActionsContract
 ): void {
   /**
-   * Trash records and persist the store.
+   * Soft delete records and persist the store.
    */
-  actions.softDelete = async function(
+  rootActions.softDelete = async function(
     this: Store<any>,
     _context: RootActionContext,
     payload: any

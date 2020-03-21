@@ -173,7 +173,7 @@ describe('Feature - Model - Delete', () => {
       ]
     })
 
-    await User.softDelete((record: any) => record.age >= 20)
+    await User.softDelete((record: User) => record.age >= 20)
 
     const expected = createState({
       users: {
@@ -263,6 +263,7 @@ describe('Feature - Model - Delete', () => {
         }
       }
 
+      posts!: Post[]
       deleted_at!: number
       $isDeleted!: boolean
     }
@@ -288,14 +289,16 @@ describe('Feature - Model - Delete', () => {
 
     expect(user.$isDeleted).toBe(false)
     expect(user.deleted_at).toBe(null)
+    expect(user.posts).not.toEqual([])
 
     await user.$softDelete()
 
     expect(user.$isDeleted).toBe(true)
     expect(user.deleted_at).toBe(mockDate)
+    expect(user.posts).not.toEqual([])
   })
 
-  it('should hydrate instance after deleting', async () => {
+  it('can hydrate instance after deleting', async () => {
     class User extends Model {
       static entity = 'users'
 

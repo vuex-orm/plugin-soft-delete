@@ -7,15 +7,15 @@ export default function Query(
   query: typeof BaseQuery
 ): void {
   /**
-   * Determine if trashed records should be filtered exclusively.
-   *   true  = only trashed records
-   *   false = include trashed records
-   *   null  = exclude trashed records
+   * Determine if soft deleted models should be filtered exclusively.
+   *   true  = only soft deletes
+   *   false = include soft deletes
+   *   null  = exclude soft deletes
    */
   query.prototype.softDeletesFilter = null
 
   /**
-   * Constraint includes trashed records.
+   * Constraint includes soft deleted models.
    */
   query.prototype.withTrashed = function() {
     this.softDeletesFilter = false
@@ -24,7 +24,7 @@ export default function Query(
   }
 
   /**
-   * Constraint restricts to only trashed records.
+   * Constraint restricts to only soft deleted models.
    */
   query.prototype.onlyTrashed = function() {
     this.softDeletesFilter = true
@@ -48,20 +48,20 @@ export default function Query(
   }
 
   /**
-   * Process the record(s) to be trashed.
-   * The method expects the condition to be a single or collection of a primary
-   * key, a single or collection of a composite key, or a expression closure.
+   * Process the model(s) to be soft deleted.
    */
   query.prototype.softDelete = function(condition: any) {
-    const config = context.createConfig(this.model.softDeleteConfig)
+    const { key, flagName, mutator } = context.createConfig(
+      this.model.softDeleteConfig
+    )
 
     let value = Date.now()
 
-    value = typeof config.mutator === 'function' ? config.mutator(value) : value
+    value = typeof mutator === 'function' ? mutator(value) : value
 
     const data = {
-      [config.key]: value,
-      [config.flagName]: true
+      [key]: value,
+      [flagName]: true
     }
 
     if (Array.isArray(condition)) {
@@ -69,7 +69,7 @@ export default function Query(
       if (!this.model.isCompositePrimaryKey()) {
         return this.model.update({
           data,
-          where: (r) => condition.includes(r[r.$primaryKey()])
+          where: (record) => condition.includes(record[record.$primaryKey()])
         })
       }
 
@@ -86,21 +86,20 @@ export default function Query(
       }
     }
 
-    return this.model.update({
-      data,
-      where: condition as any
-    })
+    return this.model.update({ data, where: condition })
   }
 
   /**
-   * Fetch all trashed records from the store.
+   * Fetch all soft deletes from the store.
    */
   query.prototype.allTrashed = function() {
-    return this.onlyTrashed().get()
+    return this.newQuery()
+      .onlyTrashed()
+      .get()
   }
 
   /**
-   * Fetch all trashed records from the store and group by entity.
+   * Fetch all soft deletes from the store and group by entity.
    */
   query.allTrashed = function(store) {
     const database = store.$db()
@@ -113,7 +112,7 @@ export default function Query(
   }
 
   /**
-   * Global select hook prevents trashed records from being selected unless
+   * Global select hook prevents soft deleted models from being selected unless
    * queries are explicity chained with `withTrashed` or `onlyTrashed`.
    */
   query.on('beforeSelect', function<T extends BaseQuery>(
@@ -121,17 +120,17 @@ export default function Query(
     models: Data.Collection
   ) {
     return models.filter((model) => {
-      // Only trashed records
+      // Only soft deletes
       if (this.softDeletesFilter === true) {
         return model.$trashed()
       }
 
-      // Include trashed records
+      // Include soft deletes
       if (this.softDeletesFilter === false) {
         return models
       }
 
-      // Exclude trashed records
+      // Exclude soft deletes
       return !model.$trashed()
     })
   })

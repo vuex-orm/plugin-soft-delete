@@ -177,7 +177,7 @@ describe('Feature - Module - Delete', () => {
 
     await store.dispatch(
       'entities/users/softDelete',
-      (record: any) => record.age >= 20
+      (record: User) => record.age >= 20
     )
 
     const expected = createState({

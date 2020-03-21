@@ -5,9 +5,6 @@ describe('Feature - Vuex ORM Soft Delete', () => {
   it('should have `key` and `flagName` attributes on new', async () => {
     class User extends Model {
       static entity = 'users'
-
-      deleted_at!: number
-      $isDeleted!: boolean
     }
 
     createStore([User])

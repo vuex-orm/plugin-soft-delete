@@ -6,7 +6,7 @@ export default function Actions(
   actions: ActionsContract
 ): void {
   /**
-   * Trash records and persist to the store.
+   * Soft delete records and persist to the store.
    */
   actions.softDelete = async (
     context: ActionContext,
