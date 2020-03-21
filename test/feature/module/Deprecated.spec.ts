@@ -1,7 +1,7 @@
 import { createStore, createState } from 'test/support/Helpers'
 import { Model } from '@vuex-orm/core'
 
-describe('Feature - Model - Deprecated', () => {
+describe('Feature - Module - Deprecated', () => {
   const mockDate = Date.now()
   const spyOnDate = jest.spyOn(Date, 'now').mockImplementation(() => mockDate)
 

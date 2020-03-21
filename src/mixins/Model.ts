@@ -6,42 +6,10 @@ export default function Model(
   model: typeof BaseModel
 ): void {
   /**
-   * Add supporting attributes to models.
+   * Trash record(s) matching a condition.
    */
-  const $fields = model.prototype.$fields
-
-  model.prototype.$fields = function() {
-    const fields = $fields.call(this)
-
-    const { key, flagName } = context.createConfig(
-      this.$self().softDeleteConfig
-    )
-
-    return Object.assign({}, fields, {
-      [key]: this.$self().attr(null),
-      [flagName]: this.$self().attr(false)
-    })
-  }
-
-  /**
-   * Flags are visible by default during model serialization. They can be hidden
-   * by setting `exposeFlagsExternally` to false globally or locally on models.
-   */
-  const $toJson = model.prototype.$toJson
-
-  model.prototype.$toJson = function() {
-    const toJson = $toJson.call(this)
-
-    const config = context.createConfig(this.$self().softDeleteConfig)
-
-    if (config.exposeFlagsExternally !== true) {
-      /* istanbul ignore next */
-      const { [config.key]: k, [config.flagName]: fn, ...json } = toJson
-
-      return json
-    }
-
-    return toJson
+  model.softDelete = function(payload: any) {
+    return this.dispatch('softDelete', payload)
   }
 
   /**
@@ -95,9 +63,41 @@ export default function Model(
   }
 
   /**
-   * Trash record(s) matching a condition.
+   * Add supporting attributes to models.
    */
-  model.softDelete = function(payload: any) {
-    return this.dispatch('softDelete', payload)
+  const $fields = model.prototype.$fields
+
+  model.prototype.$fields = function() {
+    const fields = $fields.call(this)
+
+    const { key, flagName } = context.createConfig(
+      this.$self().softDeleteConfig
+    )
+
+    return Object.assign({}, fields, {
+      [key]: this.$self().attr(null),
+      [flagName]: this.$self().attr(false)
+    })
+  }
+
+  /**
+   * Flags are visible by default during model serialization. They can be hidden
+   * by setting `exposeFlagsExternally` to false globally or locally on models.
+   */
+  const $toJson = model.prototype.$toJson
+
+  model.prototype.$toJson = function() {
+    const toJson = $toJson.call(this)
+
+    const config = context.createConfig(this.$self().softDeleteConfig)
+
+    if (config.exposeFlagsExternally !== true) {
+      /* istanbul ignore next */
+      const { [config.key]: k, [config.flagName]: fn, ...json } = toJson
+
+      return json
+    }
+
+    return toJson
   }
 }

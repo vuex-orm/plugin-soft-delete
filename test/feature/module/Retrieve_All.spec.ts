@@ -1,7 +1,7 @@
 import { createStore } from 'test/support/Helpers'
 import { Model } from '@vuex-orm/core'
 
-describe('Feature - Module - Retrieve', () => {
+describe('Feature - Module - Retrieve All', () => {
   const mockDate = Date.now()
   const spyOnDate = jest.spyOn(Date, 'now').mockImplementation(() => mockDate)
 
