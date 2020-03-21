@@ -93,7 +93,7 @@ export default function Query(
   }
 
   /**
-   * Fetch all trashed records from the store
+   * Fetch all trashed records from the store.
    */
   query.prototype.allTrashed = function() {
     return this.onlyTrashed().get()
@@ -121,18 +121,18 @@ export default function Query(
     models: Data.Collection
   ) {
     return models.filter((model) => {
-      // Only trashed records.
+      // Only trashed records
       if (this.softDeletesFilter === true) {
-        return model.trashed()
+        return model.$trashed()
       }
 
-      // Include trashed records.
+      // Include trashed records
       if (this.softDeletesFilter === false) {
         return models
       }
 
-      // Exclude trashed records.
-      return !model.trashed()
+      // Exclude trashed records
+      return !model.$trashed()
     })
   })
 }

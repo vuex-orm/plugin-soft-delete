@@ -82,7 +82,7 @@ export default function Model(
   /**
    * Determine if the instance has been trashed.
    */
-  model.prototype.trashed = function() {
+  model.prototype.$trashed = function() {
     const { flagName } = context.createConfig(this.$self().softDeleteConfig)
 
     return this[flagName] === true

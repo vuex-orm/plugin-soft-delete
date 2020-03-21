@@ -81,7 +81,7 @@ describe('Feature - Model - Retrieve', () => {
     await User.softDelete(1)
 
     const users = User.query()
-      .where((user: User) => user.trashed())
+      .where((user: User) => user.$trashed())
       .get()
 
     expect(users.length).toBe(0)
@@ -116,7 +116,7 @@ describe('Feature - Model - Retrieve', () => {
       .get()
 
     expect(users.length).toBe(2)
-    expect(users[0].trashed()).toBe(true)
-    expect(users[1].trashed()).toBe(false)
+    expect(users[0].$trashed()).toBe(true)
+    expect(users[1].$trashed()).toBe(false)
   })
 })

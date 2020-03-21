@@ -43,7 +43,7 @@ declare module '@vuex-orm/core' {
     /**
      * Determine if the instance has been trashed.
      */
-    trashed(): boolean
+    $trashed(): boolean
   }
 
   namespace Query {
