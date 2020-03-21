@@ -5,11 +5,15 @@ Vuex ORM Soft Delete plugin adds soft delete capabilities on model entities.
 ## Table of Contents
 
 - Guide
-    - [Installation](/guide/installation.md)
-    - [Setup](/guide/setup.md)
-    - [Usage](/guide/usage.md)
-    - [Options](/guide/options.md)
-    - [Sponsors](/guide/sponsors)
+  - [Installation](/guide/installation.md)
+  - [Setup](/guide/setup.md)
+  - [Usage](/guide/usage.md)
+  - [Options](/guide/options.md)
+  - [Sponsors](/guide/sponsors)
+- API
+  - [Model](/api/model.md)
+  - [Query](/api/query.md)
+
 
 ## Sponsors
 
