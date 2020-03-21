@@ -47,20 +47,26 @@ export default function Model(
   /**
    * Trash the record on a model instance.
    */
-  model.prototype.$softDelete = async function() {
-    const record = await this.$dispatch(
+  model.prototype.$softDelete = async function(hydrate?) {
+    const model = await this.$dispatch(
       'softDelete',
       this.$self().getIdFromRecord(this)
     )
+
+    if (hydrate) {
+      this.$fill(model.$getAttributes())
+
+      return this
+    }
 
     const { key, flagName } = context.createConfig(
       this.$self().softDeleteConfig
     )
 
-    this[key] = record[key]
-    this[flagName] = record[flagName]
+    this[key] = model[key]
+    this[flagName] = model[flagName]
 
-    return record
+    return model
   }
 
   /**
@@ -68,7 +74,7 @@ export default function Model(
    * This method is deprecated and will warn users until retired.
    * @deprecated since v1.2.0
    */
-  model.prototype.softDelete = function() {
+  model.prototype.softDelete = function(hydrate?) {
     /* istanbul ignore next */
     if (process.env.NODE_ENV !== 'production') {
       console.warn(
@@ -76,7 +82,7 @@ export default function Model(
       )
     }
 
-    return this.$softDelete()
+    return this.$softDelete(hydrate)
   }
 
   /**

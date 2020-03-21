@@ -32,13 +32,13 @@ declare module '@vuex-orm/core' {
     /**
      * Trash the record on a model instance.
      */
-    $softDelete(): Promise<Data.Item<this>>
+    $softDelete(hydrate?: boolean): Promise<Data.Item<this>>
 
     /**
      * Trash the record on a model instance.
      * @deprecated since v1.2.0
      */
-    softDelete(): Promise<Data.Item<this>>
+    softDelete(hydrate?: boolean): Promise<Data.Item<this>>
 
     /**
      * Determine if the instance has been trashed.

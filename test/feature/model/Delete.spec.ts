@@ -294,4 +294,56 @@ describe('Feature - Model - Delete', () => {
     expect(user.$isDeleted).toBe(true)
     expect(user.deleted_at).toBe(mockDate)
   })
+
+  it('should hydrate instance after deleting', async () => {
+    class User extends Model {
+      static entity = 'users'
+
+      name!: string
+      post!: Post
+      deleted_at!: number
+      $isDeleted!: boolean
+
+      static fields() {
+        return {
+          id: this.attr(null),
+          name: this.attr(''),
+          post: this.hasOne(Post, 'user_id')
+        }
+      }
+
+      static beforeUpdate(model: User) {
+        model.name = 'Jane Doe'
+      }
+    }
+
+    class Post extends Model {
+      static entity = 'posts'
+
+      static fields() {
+        return {
+          id: this.attr(null),
+          user_id: this.attr(null)
+        }
+      }
+    }
+
+    createStore([User, Post])
+
+    await User.insert({
+      data: { id: 1, name: 'John Doe', post: [{ id: 2 }, { id: 3 }] }
+    })
+
+    const user = User.query().with('post').find(1) as User
+
+    expect(user.name).toBe('John Doe')
+    expect(user.post).toBeInstanceOf(Post)
+
+    await user.$softDelete(true)
+
+    expect(user.$isDeleted).toBe(true)
+    expect(user.deleted_at).toBe(mockDate)
+    expect(user.name).toBe('Jane Doe')
+    expect(user.post).toBeNull()
+  })
 })

@@ -19,18 +19,24 @@ if (user.$trashed()) {
 Models can be soft deleted by calling `softDelete` directly:
 
 ```js
-User.softDelete(1)
+await User.softDelete(1)
 ```
 
-Model instances can be soft deleted by calling `$softDelete` on the model instance:
+Model instances can be soft deleted by calling `$softDelete` on the instance itself:
 
 ```js
 const user = User.find(1)
 
-user.$softDelete()
+await user.$softDelete()
 ```
 
-Both methods are asynchronous and return a Promise.
+The `$softDelete` instance method also accepts a `boolean` argument which can force hydration:
+
+```js
+await user.$softDelete(true)
+```
+
+**See also**: [API Reference](/api/model.md#softdelete-2)
 
 ### Primary Key
 
