@@ -17,12 +17,3 @@ export {
   State,
   RootState
 }
-
-export interface Modules {
-  actions: Actions
-  getters: Getters
-  rootGetters: RootGetters
-  rootActions: RootActions
-}
-
-export default Modules

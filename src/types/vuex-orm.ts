@@ -14,18 +14,11 @@ declare module '@vuex-orm/core' {
     /**
      * Process the record being trashed.
      */
-    export function softDelete<T extends typeof Model>(
-      this: T,
-      condition: PrimaryKey
-    ): Promise<Data.Item>
-    export function softDelete<T extends typeof Model>(
-      this: T,
-      condition: Predicate<Model>
-    ): Promise<Data.Collection>
-    export function softDelete<T extends typeof Model>(
-      this: T,
-      condition: any
-    ): Promise<any>
+    export function softDelete(condition: PrimaryKey): Promise<Data.Item>
+    export function softDelete(condition: Predicate): Promise<Data.Collection>
+    export function softDelete(condition: any): Promise<any>
+
+    export function restore(payload: any): Promise<any>
   }
 
   interface Model {
@@ -63,7 +56,7 @@ declare module '@vuex-orm/core' {
      * Process the record(s) to be trashed.
      */
     softDelete(condition: PrimaryKey): Promise<Data.Collections>
-    softDelete(condition: Predicate<Model>): Promise<Data.Collections>
+    softDelete(condition: Predicate): Promise<Data.Collections>
     softDelete(condition: any): any
 
     /**

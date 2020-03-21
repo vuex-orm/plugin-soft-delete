@@ -2,10 +2,13 @@ import { Model, Query } from '@vuex-orm/core'
 import Components from './contracts/Components'
 import Config from './contracts/Config'
 import Options from './contracts/Options'
-import Modules from './contracts/Modules'
+import * as Store from './contracts/Store'
 import ModelMixin from './mixins/Model'
 import QueryMixin from './mixins/Query'
-import ModulesMixin from './mixins/Modules'
+import ActionsMixin from './mixins/Actions'
+import GettersMixin from './mixins/Getters'
+import RootActionsMixin from './mixins/RootActions'
+import RootGettersMixin from './mixins/RootGetters'
 import GlobalConfig from './config/GlobalConfig'
 
 export default class VuexORMSoftDelete {
@@ -20,9 +23,24 @@ export default class VuexORMSoftDelete {
   query: typeof Query
 
   /**
-   * The module components.
+   * The store action tree.
    */
-  modules: Modules
+  actions: Store.Actions
+
+  /**
+   * The store action tree.
+   */
+  getters: Store.Getters
+
+  /**
+   * The store action tree.
+   */
+  rootGetters: Store.RootGetters
+
+  /**
+   * The store action tree.
+   */
+  rootActions: Store.RootActions
 
   /**
    * The global configuration object.
@@ -36,12 +54,10 @@ export default class VuexORMSoftDelete {
     this.model = components.Model
     this.query = components.Query
 
-    this.modules = {
-      actions: components.Actions,
-      getters: components.Getters,
-      rootGetters: components.RootGetters,
-      rootActions: components.RootActions
-    }
+    this.actions = components.Actions
+    this.getters = components.Getters
+    this.rootActions = components.RootActions
+    this.rootGetters = components.RootGetters
 
     this.config = this.createConfig(config)
   }
@@ -64,6 +80,9 @@ export default class VuexORMSoftDelete {
   plugin(): void {
     ModelMixin(this, this.model)
     QueryMixin(this, this.query)
-    ModulesMixin(this, this.modules)
+    ActionsMixin(this, this.actions)
+    GettersMixin(this, this.getters)
+    RootActionsMixin(this, this.rootActions)
+    RootGettersMixin(this, this.rootGetters)
   }
 }
