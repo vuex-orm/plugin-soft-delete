@@ -129,7 +129,7 @@ Vuex ORM can be extended via plugins to add additional features. Here is a list 
 
 ## Contribution
 
-We are excited that you are interested in contributing to Vuex ORM Axios! Anything from raising an issue, submitting an idea of a new feature, or making a pull request is welcome!
+We are excited that you are interested in contributing to Vuex ORM Soft Delete! Anything from raising an issue, submitting an idea of a new feature, or making a pull request is welcome!
 
 ### Development
 
@@ -165,4 +165,4 @@ Generate test coverage in `coverage` directory.
 
 ## License
 
-The Vuex ORM Plugin Axios is open-sourced software licensed under the [MIT license](LICENSE).
+Vuex ORM Soft Delete is open-sourced software licensed under the [MIT license](LICENSE).
