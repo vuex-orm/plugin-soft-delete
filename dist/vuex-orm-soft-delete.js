@@ -82,8 +82,86 @@
 
     function Model(context, model) {
         /**
-         * Flags are visible by default during model serialization.
-         * They can be hidden by setting `exposeFlagsExternally` to false.
+         * Soft delete model(s) matching a condition.
+         */
+        model.softDelete = function (payload) {
+            return this.dispatch('softDelete', payload);
+        };
+        /**
+         * Soft delete a model instance.
+         */
+        model.prototype.$softDelete = function (hydrate) {
+            return __awaiter(this, void 0, void 0, function () {
+                var model, _a, key, flagName;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
+                        case 0: return [4 /*yield*/, this.$dispatch('softDelete', this.$self().getIdFromRecord(this))];
+                        case 1:
+                            model = _b.sent();
+                            if (hydrate) {
+                                this.$fill(model.$getAttributes());
+                                return [2 /*return*/, this];
+                            }
+                            _a = context.createConfig(this.$self().softDeleteConfig), key = _a.key, flagName = _a.flagName;
+                            this[key] = model[key];
+                            this[flagName] = model[flagName];
+                            return [2 /*return*/, model];
+                    }
+                });
+            });
+        };
+        /**
+         * Restore a model instance.
+         */
+        model.prototype.$restore = function (hydrate) {
+            return __awaiter(this, void 0, void 0, function () {
+                var _a, key, flagName, model;
+                var _b;
+                return __generator(this, function (_c) {
+                    switch (_c.label) {
+                        case 0:
+                            _a = context.createConfig(this.$self().softDeleteConfig), key = _a.key, flagName = _a.flagName;
+                            return [4 /*yield*/, this.$dispatch('update', {
+                                    where: this.$self().getIdFromRecord(this),
+                                    data: (_b = {},
+                                        _b[key] = null,
+                                        _b[flagName] = false,
+                                        _b)
+                                })];
+                        case 1:
+                            model = _c.sent();
+                            if (hydrate) {
+                                this.$fill(model.$getAttributes());
+                                return [2 /*return*/, this];
+                            }
+                            this[key] = model[key];
+                            this[flagName] = model[flagName];
+                            return [2 /*return*/, this];
+                    }
+                });
+            });
+        };
+        /**
+         * Determine if the model instance has been soft deleted.
+         */
+        model.prototype.$trashed = function () {
+            var flagName = context.createConfig(this.$self().softDeleteConfig).flagName;
+            return this[flagName] === true;
+        };
+        /**
+         * Soft-delete a model instance.
+         * This method is deprecated and will warn users until retired.
+         * @deprecated since v1.2.0
+         */
+        model.prototype.softDelete = function (hydrate) {
+            /* istanbul ignore next */
+            if (process.env.NODE_ENV !== 'production') {
+                console.warn('The `softDelete` instance method has been deprecated. Please use `$softDelete`.');
+            }
+            return this.$softDelete(hydrate);
+        };
+        /**
+         * Add supporting attributes to model.
          */
         var $fields = model.prototype.$fields;
         model.prototype.$fields = function () {
@@ -96,8 +174,8 @@
                 _a));
         };
         /**
-         * Flags are visible by default during model serialization.
-         * They can be hidden by setting `exposeFlagsExternally` to false.
+         * Flags are visible by default during model serialization. They can be hidden
+         * by setting `exposeFlagsExternally` to false.
          */
         var $toJson = model.prototype.$toJson;
         model.prototype.$toJson = function () {
@@ -110,83 +188,25 @@
             }
             return toJson;
         };
-        /**
-         * ...
-         */
-        var $fill = model.prototype.$fill;
-        model.prototype.$fill = function (record) {
-            var _a, _b;
-            $fill.call(this, record);
-            if (record) {
-                var _c = context.createConfig(this.$self().softDeleteConfig), key = _c.key, flagName = _c.flagName;
-                this[key] = (_a = record[key]) !== null && _a !== void 0 ? _a : null;
-                this[flagName] = (_b = record[flagName]) !== null && _b !== void 0 ? _b : false;
-            }
-        };
-        /**
-         * Soft delete the record on a model instance.
-         */
-        model.prototype.$softDelete = function () {
-            return __awaiter(this, void 0, void 0, function () {
-                var record, _a, key, flagName;
-                return __generator(this, function (_b) {
-                    switch (_b.label) {
-                        case 0: return [4 /*yield*/, this.$dispatch('softDelete', this.$self().getIdFromRecord(this))];
-                        case 1:
-                            record = _b.sent();
-                            _a = context.createConfig(this.$self().softDeleteConfig), key = _a.key, flagName = _a.flagName;
-                            this[key] = record[key];
-                            this[flagName] = record[flagName];
-                            return [2 /*return*/, record];
-                    }
-                });
-            });
-        };
-        /**
-         * Soft delete the record on a model instance.
-         * This method is deprecated and will continue to warn dev environments of
-         * this deprecation until completely removed.
-         * @deprecated since v1.2.0
-         */
-        model.prototype.softDelete = function () {
-            /* istanbul ignore next */
-            if (process.env.NODE_ENV !== 'production') {
-                console.warn('The `softDelete` instance method has been deprecated. Please use `$softDelete`.');
-            }
-            return this.$softDelete();
-        };
-        /**
-         * Determine if the instance has been soft deleted.
-         */
-        model.prototype.trashed = function () {
-            var flagName = context.createConfig(this.$self().softDeleteConfig).flagName;
-            return this[flagName] === true;
-        };
-        /**
-         * Soft delete record(s) matching a condition.
-         */
-        model.softDelete = function (payload) {
-            return this.dispatch('softDelete', payload);
-        };
     }
 
     function Query(context, query) {
         /**
-         * Determine if soft deletes should be filtered exclusively.
+         * Determine if soft deleted models should be filtered exclusively.
          *   true  = only soft deletes
          *   false = include soft deletes
          *   null  = exclude soft deletes
          */
         query.prototype.softDeletesFilter = null;
         /**
-         * Constraint includes soft deletes.
+         * Constraint includes soft deleted models.
          */
         query.prototype.withTrashed = function () {
             this.softDeletesFilter = false;
             return this;
         };
         /**
-         * Constraint restricts to only soft deletes.
+         * Constraint restricts to only soft deleted models.
          */
         query.prototype.onlyTrashed = function () {
             this.softDeletesFilter = true;
@@ -203,21 +223,24 @@
             }
             return this.onlyTrashed();
         };
+        /**
+         * Process the model(s) to be soft deleted.
+         */
         query.prototype.softDelete = function (condition) {
             var _a;
-            var config = context.createConfig(this.model.softDeleteConfig);
+            var _b = context.createConfig(this.model.softDeleteConfig), key = _b.key, flagName = _b.flagName, mutator = _b.mutator;
             var value = Date.now();
-            value = typeof config.mutator === 'function' ? config.mutator(value) : value;
+            value = typeof mutator === 'function' ? mutator(value) : value;
             var data = (_a = {},
-                _a[config.key] = value,
-                _a[config.flagName] = true,
+                _a[key] = value,
+                _a[flagName] = true,
                 _a);
             if (Array.isArray(condition)) {
                 // Array of primary keys
                 if (!this.model.isCompositePrimaryKey()) {
                     return this.model.update({
                         data: data,
-                        where: function (r) { return condition.includes(r[r.$primaryKey()]); }
+                        where: function (record) { return condition.includes(record[record.$primaryKey()]); }
                     });
                 }
                 // Array of composite primary keys
@@ -231,19 +254,18 @@
                     });
                 }
             }
-            return this.model.update({
-                data: data,
-                where: condition
-            });
+            return this.model.update({ data: data, where: condition });
         };
         /**
-         * Fetch all soft deletes from the store
+         * Fetch all soft deletes from the store.
          */
         query.prototype.allTrashed = function () {
-            return this.onlyTrashed().get();
+            return this.newQuery()
+                .onlyTrashed()
+                .get();
         };
         /**
-         * Fetch all soft deletes from the store and group them by entity.
+         * Fetch all soft deletes from the store and group by entity.
          */
         query.allTrashed = function (store) {
             var _this = this;
@@ -255,32 +277,32 @@
             }, {});
         };
         /**
-         * Global select hook prevents soft deletes being selected unless queries are
-         * explicity used with `withTrashed` or `onlyTrashed`.
+         * Global select hook prevents soft deleted models from being selected unless
+         * queries are explicity chained with `withTrashed` or `onlyTrashed`.
          */
         query.on('beforeSelect', function (models) {
             var _this = this;
             return models.filter(function (model) {
-                // Only soft deletes.
+                // Only soft deletes
                 if (_this.softDeletesFilter === true) {
-                    return model.trashed();
+                    return model.$trashed();
                 }
-                // Include soft deletes.
+                // Include soft deletes
                 if (_this.softDeletesFilter === false) {
                     return models;
                 }
-                // Exclude soft deletes.
-                return !model.trashed();
+                // Exclude soft deletes
+                return !model.$trashed();
             });
         });
     }
 
-    function Modules(context, modules) {
+    function Actions(_context, actions) {
         var _this = this;
         /**
-         * Soft delete records from the store.
+         * Soft delete records and persist to the store.
          */
-        modules.actions.softDelete = function (context, payload) { return __awaiter(_this, void 0, void 0, function () {
+        actions.softDelete = function (context, payload) { return __awaiter(_this, void 0, void 0, function () {
             var state, entity, where;
             var _a;
             return __generator(this, function (_b) {
@@ -290,10 +312,22 @@
                 return [2 /*return*/, context.dispatch(state.$connection + "/softDelete", { entity: entity, where: where }, { root: true })];
             });
         }); };
+    }
+
+    function Getters(_context, getters) {
         /**
-         * Soft delete records from the store.
+         * Get all trashed records from the store and group by entity.
          */
-        modules.rootActions.softDelete = function (_context, payload) {
+        getters.allTrashed = function (state, _getters, _rootState, rootGetters) { return function () {
+            return rootGetters[state.$connection + "/allTrashed"](state.$name);
+        }; };
+    }
+
+    function RootActions(context, rootActions) {
+        /**
+         * Soft delete records and persist the store.
+         */
+        rootActions.softDelete = function (_context, payload) {
             return __awaiter(this, void 0, void 0, function () {
                 var entity, where;
                 return __generator(this, function (_a) {
@@ -302,16 +336,13 @@
                 });
             });
         };
+    }
+
+    function RootGetters(context, rootGetters) {
         /**
-         * Get all soft deletes keyed by entity.
+         * Get all trashed records belonging to an entity.
          */
-        modules.getters.allTrashed = function (state, _getters, _rootState, rootGetters) { return function () {
-            return rootGetters[state.$connection + "/allTrashed"](state.$name);
-        }; };
-        /**
-         * Get all soft deletes of given entity.
-         */
-        modules.rootGetters.allTrashed = function (_state) {
+        rootGetters.allTrashed = function (_state) {
             var _this = this;
             return function (entity) {
                 if (entity) {
@@ -336,12 +367,10 @@
         function VuexORMSoftDelete(components, config) {
             this.model = components.Model;
             this.query = components.Query;
-            this.modules = {
-                actions: components.Actions,
-                getters: components.Getters,
-                rootGetters: components.RootGetters,
-                rootActions: components.RootActions
-            };
+            this.actions = components.Actions;
+            this.getters = components.Getters;
+            this.rootActions = components.RootActions;
+            this.rootGetters = components.RootGetters;
             this.config = this.createConfig(config);
         }
         /**
@@ -357,7 +386,10 @@
         VuexORMSoftDelete.prototype.plugin = function () {
             Model(this, this.model);
             Query(this, this.query);
-            Modules(this, this.modules);
+            Actions(this, this.actions);
+            Getters(this, this.getters);
+            RootActions(this, this.rootActions);
+            RootGetters(this, this.rootGetters);
         };
         return VuexORMSoftDelete;
     }());

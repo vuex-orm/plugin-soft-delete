@@ -6,14 +6,14 @@ export default function Model(
   model: typeof BaseModel
 ): void {
   /**
-   * Trash record(s) matching a condition.
+   * Soft delete model(s) matching a condition.
    */
   model.softDelete = function(payload: any) {
     return this.dispatch('softDelete', payload)
   }
 
   /**
-   * Trash the record on a model instance.
+   * Soft delete a model instance.
    */
   model.prototype.$softDelete = async function(hydrate?) {
     const model = await this.$dispatch(
@@ -38,7 +38,44 @@ export default function Model(
   }
 
   /**
-   * Trash the record on a model instance.
+   * Restore a model instance.
+   */
+  model.prototype.$restore = async function(hydrate?) {
+    const { key, flagName } = context.createConfig(
+      this.$self().softDeleteConfig
+    )
+
+    const model = await this.$dispatch('update', {
+      where: this.$self().getIdFromRecord(this),
+      data: {
+        [key]: null,
+        [flagName]: false
+      }
+    })
+
+    if (hydrate) {
+      this.$fill(model.$getAttributes())
+
+      return this
+    }
+
+    this[key] = model[key]
+    this[flagName] = model[flagName]
+
+    return this
+  }
+
+  /**
+   * Determine if the model instance has been soft deleted.
+   */
+  model.prototype.$trashed = function() {
+    const { flagName } = context.createConfig(this.$self().softDeleteConfig)
+
+    return this[flagName] === true
+  }
+
+  /**
+   * Soft-delete a model instance.
    * This method is deprecated and will warn users until retired.
    * @deprecated since v1.2.0
    */
@@ -54,16 +91,7 @@ export default function Model(
   }
 
   /**
-   * Determine if the instance has been trashed.
-   */
-  model.prototype.$trashed = function() {
-    const { flagName } = context.createConfig(this.$self().softDeleteConfig)
-
-    return this[flagName] === true
-  }
-
-  /**
-   * Add supporting attributes to models.
+   * Add supporting attributes to model.
    */
   const $fields = model.prototype.$fields
 
@@ -82,7 +110,7 @@ export default function Model(
 
   /**
    * Flags are visible by default during model serialization. They can be hidden
-   * by setting `exposeFlagsExternally` to false globally or locally on models.
+   * by setting `exposeFlagsExternally` to false.
    */
   const $toJson = model.prototype.$toJson
 

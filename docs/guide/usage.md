@@ -30,7 +30,7 @@ const user = User.find(1)
 await user.$softDelete()
 ```
 
-The `$softDelete` instance method also accepts a `boolean` argument which can force hydration:
+The `$softDelete` instance method also accepts a `boolean` argument which can force instance hydration:
 
 ```js
 await user.$softDelete(true)
@@ -142,3 +142,19 @@ store.getters['entities/users/allTrashed']()
 ```
 
 This is equivalent to the model query syntax: `User.query().onlyTrashed().get()`
+
+## Restoring
+
+Sometimes you may wish to "un-delete" a soft deleted model. To restore a soft deleted model into an active state, use the `$restore` method on a model instance:
+
+```js
+const user = User.find(1)
+
+await user.$restore()
+```
+
+The `$restore` instance method also accepts a boolean argument which can force instance hydration:
+
+```js
+await user.$restore(true)
+```

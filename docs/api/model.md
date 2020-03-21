@@ -39,6 +39,20 @@ sidebarDepth: 2
   
   Returns a Promise that resolves with the soft deleted model.
 
+- **See also**: [Deleting](/guide/usage.md#deleting)
+
+### `$restore`
+
+- **Type**: `(hydrate?: boolean) => Promise`
+
+  Restore the model instance into an active state.
+  
+  Passing `hydrate` as `true` will also hydrate the given instance. See [$softDelete](#softdelete-2) for more info.
+  
+  Returns a Promise that resolves with the restored model.
+
+- **See also**: [Restoring](/guide/usage.md#restoring)
+
 ### `$trashed`
 
 - **Type**: `() => boolean`

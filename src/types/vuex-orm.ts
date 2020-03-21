@@ -12,65 +12,68 @@ declare module '@vuex-orm/core' {
     export let softDeleteConfig: Options
 
     /**
-     * Process the record being trashed.
+     * Soft delete models matching a condition.
      */
     export function softDelete(condition: PrimaryKey): Promise<Data.Item>
     export function softDelete(condition: Predicate): Promise<Data.Collection>
     export function softDelete(condition: any): Promise<any>
-
-    export function restore(payload: any): Promise<any>
   }
 
   interface Model {
     /**
-     * Trash the record on a model instance.
+     * Soft delete a model instance.
      */
     $softDelete(hydrate?: boolean): Promise<Data.Item<this>>
 
     /**
-     * Trash the record on a model instance.
+     * Restore a model instance.
+     */
+    $restore(hydrate?: boolean): Promise<Data.Item<this>>
+
+    /**
+     * Determine if the model instance has been soft deleted.
+     */
+    $trashed(): boolean
+
+    /**
+     * Soft delete a model instance.
      * @deprecated since v1.2.0
      */
     softDelete(hydrate?: boolean): Promise<Data.Item<this>>
-
-    /**
-     * Determine if the instance has been trashed.
-     */
-    $trashed(): boolean
   }
 
   namespace Query {
     /**
-     * Fetch all trashed records from the store and group by entity.
+     * Fetch all soft deletes from the store and group by entity.
      */
     export function allTrashed(store: Store<any>): Data.Collections
   }
 
   interface Query {
     /**
-     * Holds the filtering mode for the query builder.
+     * Filtering mode for the query builder.
      */
     softDeletesFilter: boolean | null
 
     /**
-     * Process the record(s) to be trashed.
+     * Process the model(s) to be soft deleted.
      */
     softDelete(condition: PrimaryKey): Promise<Data.Collections>
     softDelete(condition: Predicate): Promise<Data.Collections>
     softDelete(condition: any): any
 
     /**
-     * Constraint includes trashed records.
+     * Constraint includes soft deleted models.
      */
     withTrashed(): this
 
     /**
-     * Constraint restricts to only trashed records.
+     * Constraint restricts to only soft deleted models.
      */
     onlyTrashed(): this
 
     /**
-     * Fetch all trashed records from the store
+     * Fetch all soft deletes from the store.
      */
     allTrashed(): Data.Collection
 
