@@ -1,82 +1,74 @@
 {
   "name": "@vuex-orm/plugin-soft-delete",
-  "version": "1.1.1",
-  "description": "Vuex ORM plugin adding soft delete capability. Based on an original idea from Conan Crawford.",
-  "author": "Thomas Villaren <tvillaren@gmail.com>",
-  "main": "dist/index.js",
-  "devDependencies": {
-    "@babel/cli": "^7.0.0",
-    "@babel/core": "^7.5.5",
-    "@babel/plugin-proposal-class-properties": "^7.5.5",
-    "@babel/plugin-proposal-decorators": "^7.4.4",
-    "@babel/plugin-proposal-export-namespace-from": "^7.5.2",
-    "@babel/plugin-proposal-function-sent": "^7.5.0",
-    "@babel/plugin-proposal-numeric-separator": "^7.2.0",
-    "@babel/plugin-proposal-throw-expressions": "^7.2.0",
-    "@babel/plugin-transform-regenerator": "^7.4.5",
-    "@babel/plugin-transform-runtime": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
-    "@babel/register": "^7.5.5",
-    "@babel/runtime": "^7.5.5",
-    "@vuex-orm/core": "^0.31.6",
-    "babel-plugin-istanbul": "^5.2.0",
-    "chai": "^4.1.2",
-    "cross-env": "^5.2.0",
-    "mocha": "^5.2.0",
-    "mocha-webpack": "2.0.0-beta.0",
-    "nyc": "^14.1.1",
-    "vue": "^2.5.16",
-    "vuex": "^3.0.1",
-    "webpack": "^4.16.0",
-    "webpack-cli": "^3.0.8"
-  },
-  "dependencies": {},
+  "version": "1.2.0",
+  "description": "Vuex ORM plugin for adding soft delete capability.",
+  "main": "dist/vuex-orm-soft-delete.common.js",
+  "module": "dist/vuex-orm-soft-delete.esm.js",
+  "unpkg": "dist/vuex-orm-soft-delete.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "dist",
+    "lib"
+  ],
   "scripts": {
-    "build": "webpack",
-    "test": "cross-env NODE_ENV=test mocha --require @babel/register  \"test/unit/**/*.js\"",
-    "cover": "cross-env NODE_ENV=test nyc mocha --require @babel/register  \"test/unit/**/*.js\"",
-    "transpile": "babel src -d .transpiled -s"
+    "build": "yarn clean && yarn build:ts && yarn build:main",
+    "build:ts": "tsc -p tsconfig.build.json",
+    "build:main": "node build/build.js",
+    "lint": "prettier --write --parser typescript \"{src,test}/**/*.ts?(x)\"",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "coverage": "jest --collect-coverage",
+    "clean": "rm -rf dist && rm -rf lib && rm -rf coverage",
+    "docs": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
+    "docs:deploy": "bash ./docs/deploy.sh"
   },
-  "nyc": {
-    "all": false,
-    "reporter": [
-      "lcov",
-      "text"
-    ],
-    "report-dir": "./test/coverage",
-    "exclude": [
-      "**/node_modules/**",
-      ".tmp",
-      "test"
-    ],
-    "extension": [
-      "js"
-    ],
-    "cache": true,
-    "sourceMap": false,
-    "instrument": false
+  "gitHooks": {
+    "pre-commit": "lint-staged"
   },
-  "resolutions": {
-    "eslint-scope": "3.7.1"
-  },
-  "directories": {
-    "test": "test"
+  "lint-staged": {
+    "*.ts?(x)": [
+      "prettier --parser=typescript --write",
+      "git add"
+    ]
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vuex-orm/plugin-soft-delete.git"
   },
   "keywords": [
-    "ORM",
-    "Vuex",
-    "Vuex",
-    "ORM",
+    "orm",
+    "vuex-orm",
+    "vuex-plugin",
+    "vuex-orm-plugin",
     "soft-delete",
     "change-tracking"
   ],
+  "author": "Kia Ishii",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/vuex-orm/plugin-soft-delete/issues"
   },
-  "homepage": "https://github.com/vuex-orm/plugin-soft-delete#readme"
+  "peerDependencies": {
+    "@vuex-orm/core": ">=0.34.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^11.0.2",
+    "@rollup/plugin-node-resolve": "^7.1.1",
+    "@types/jest": "^25.1.4",
+    "@vuex-orm/core": "^0.36.3",
+    "codecov": "^3.6.5",
+    "jest": "^25.1.0",
+    "lint-staged": "^10.0.8",
+    "prettier": "^1.19.1",
+    "rollup": "^2.1.0",
+    "ts-jest": "^25.2.1",
+    "typescript": "^3.8.3",
+    "uglify-js": "^3.8.0",
+    "vue": "^2.6.11",
+    "vue-server-renderer": "^2.6.11",
+    "vuepress": "^1.4.0",
+    "vuepress-theme-vue": "^1.1.0",
+    "vuex": "^3.1.3"
+  }
 }

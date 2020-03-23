@@ -1,6 +1,6 @@
-node_modules/
-.vscode/
-Thumbs.db
-.nyc_output
-test/coverage/
-.vs
+/coverage
+/docs/.vuepress/dist
+/docs/node_modules
+/lib
+/node_modules
+yarn-error.log

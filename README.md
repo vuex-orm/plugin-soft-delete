@@ -1,197 +1,168 @@
 <p align="center">
-  <img width="192" src="https://github.com/vuex-orm/vuex-orm/blob/master/logo-vuex-orm.png" alt="Vuex ORM">
+  <img width="192" src="https://github.com/vuex-orm/vuex-orm/raw/master/logo-vuex-orm.png" alt="Vuex ORM">
 </p>
 
-<h1 align="center">Vuex ORM Soft Delete plugin</h1>
+<h1 align="center">Vuex ORM Plugin: Soft Delete</h1>
 
-<h3 align="center">This project is supported by <a href="https://www.generativeobjects.com/" target="_blank">Generative Objects</a></h3>
+<p align="center">
+  <a href="https://www.npmjs.com/package/@vuex-orm/plugin-soft-delete">
+    <img alt="npm" src="https://img.shields.io/npm/v/@vuex-orm/plugin-soft-delete?color=blue" alt="npm">
+  </a>
+  <a href="https://travis-ci.org/vuex-orm/plugin-soft-delete">
+    <img src="https://travis-ci.org/vuex-orm/plugin-soft-delete.svg?branch=master" alt="Travis CI">
+  </a>
+  <a href="https://codecov.io/gh/vuex-orm/plugin-soft-delete">
+    <img src="https://codecov.io/gh/vuex-orm/plugin-soft-delete/branch/master/graph/badge.svg" alt="codecov">
+  </a>
+  <a href="https://github.com/vuex-orm/plugin-soft-delete/blob/master/LICENSE.md">
+    <img src="https://img.shields.io/npm/l/@vuex-orm/plugin-soft-delete.svg" alt="License">
+  </a>
+</p>
 
-[![Build Status](https://travis-ci.org/vuex-orm/plugin-soft-delete.svg?branch=master)](https://travis-ci.org/vuex-orm/plugin-soft-delete) [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
+This plugin adds Soft Delete capabilities for the [Vuex ORM](https://github.com/vuex-orm/vuex-orm) library.
 
-This is a plugin for the [Vuex-ORM](https://github.com/vuex-orm/vuex-orm) library.
+```js
+// Model action example...
+User.softDelete(1)
 
-## Installation
+// Instance action example...
+const user = User.find(1)
+await user.$softDelete()
 
-Install this plugin via npm or yarn.
+// Query integration example...
+User.query().withTrashed().get()
+User.query().onlyTrashed().get()
+```
+
+<h2 align="center">Sponsors</h2>
+
+<p align="center">Vuex ORM is sponsored by awesome folks. Big love to all of them from whole Vuex ORM community :two_hearts:</p>
+
+<h4 align="center">Super Love Sponsors</h4>
+
+<div align="center">
+  <a href="https://github.com/petertoth">
+    <img src="https://avatars2.githubusercontent.com/u/3661783?s=460&v=4" alt="Peter Tóth" width="88">
+  </a>
+  <a href="https://github.com/phaust">
+    <img src="https://avatars1.githubusercontent.com/u/2367770?s=460&v=4" alt="Mario Kolli" width="88">
+  </a>
+  <a href="https://github.com/cannikan">
+    <img src="https://avatars2.githubusercontent.com/u/21893904?s=460&v=4" alt="Cannikan" width="88">
+  </a>
+  <a href="https://github.com/somazx">
+    <img src="https://avatars0.githubusercontent.com/u/7306?s=460&v=4" alt="Andy Koch" width="88">
+  </a>
+  <a href="https://github.com/dylancopeland">
+    <img src="https://avatars1.githubusercontent.com/u/99355?s=460&v=4" alt="Dylan Copeland" width="88">
+  </a>
+</div>
+
+<h4 align="center">Big Love Sponsors</h4>
+
+<p align="center">
+  <a href="https://github.com/geraldbiggs">
+    <img src="https://avatars1.githubusercontent.com/u/3213608?s=460&v=4" alt="geraldbiggs" width="64">
+  </a>
+  <a href="https://github.com/cuebit">
+    <img src="https://avatars0.githubusercontent.com/u/1493221?s=460&v=4" alt="Cue" width="64">
+  </a>
+</p>
+
+<h4 align="center">A Love Sponsors</h4>
+
+<p align="center">
+  <a href="https://github.com/georgechaduneli">
+    <img src="https://avatars1.githubusercontent.com/u/9340753?s=460&v=4" alt="George Chaduneli" width="48">
+  </a>
+  <a href="https://github.com/bpuig">
+    <img src="https://avatars3.githubusercontent.com/u/22938625?s=460&v=4" alt="bpuig" width="48">
+  </a>
+  <a href="https://github.com/robokozo">
+    <img src="https://avatars2.githubusercontent.com/u/1719221?s=400&u=b5739798ee9a3d713f5ca3bd3d6a086c13d229a3&v=4" alt="John" width="48">
+  </a>
+</p>
+
+## Documentation
+
+You can check out the full documentation for Vuex ORM Plugin: Soft Delete at https://vuex-orm.github.io/plugin-soft-delete.
+
+## Questions & Discussions
+
+Join us on our [Slack Channel](https://join.slack.com/t/vuex-orm/shared_invite/enQtNDQ0NjE3NTgyOTY2LTc1YTI2N2FjMGRlNGNmMzBkMGZlMmYxOTgzYzkzZDM2OTQ3OGExZDRkN2FmMGQ1MGJlOWM1NjU0MmRiN2VhYzQ) for any questions and discussions.
+
+Although there is the Slack Channel, do not hesitate to open an [issue](https://github.com/vuex-orm/plugin-soft-delete/issues) for any question you might have. We're always more than happy to hear any feedback, and we don't care what kind of form they are.
+
+## Quick Start
+
+Here's a quick start guide to demonstrate how the Soft Delete plugin can be integrated effortlessly.
+
+### Install the plugin
+
+Install the plugin with [npm](https://www.npmjs.com/) or [Yarn](https://yarnpkg.com/). Ensure the latest version of Vuex ORM is installed.
 
 ```bash
-$ npm install @vuex-orm/plugin-soft-delete
-
-$ yarn add @vuex-orm/plugin-soft-delete
+npm install @vuex-orm/core @vuex-orm/plugin-soft-delete
+# OR
+yarn add @vuex-orm/core @vuex-orm/plugin-soft-delete
 ```
 
-Then, you need to install the plugin as any VuexORM plugin. In your store initialization code, simply add:
+### Register the plugin
 
-```javascript
-import VuexORMSoftDeletePlugin from '@vuex-orm/plugin-soft-delete';
-```
-
-and then
-
-```javascript
-VuexORM.use(VuexORMSoftDeletePlugin);
-```
-
-## Usage
-
-The plugin adds a `softDelete` action / mutation that has the same interface as [Vuex ORM Delete method](https://vuex-orm.github.io/vuex-orm/guide/store/deleting-data.html).
-
-### Soft-deleting
-
-#### By Primary Key Value
-
-You can soft-delete by passing a PK directly or through a `where` condition:
+Register the plugin using the `VuexORM.use` method. Furthermore, you may configure the plugin with [options](https://vuex-orm.github.io/plugin-soft-delete/guide/options).
 
 ```js
-// Initial state.
-let state = {
-    entities: {
-        users: {
-            '1': { id: 1, name: 'John' },
-            '2': { id: 1, name: 'Jane' }
-        }
-    }
-};
+import VuexORM from '@vuex-orm/core'
+import VuexORMSoftDelete from '@vuex-orm/plugin-soft-delete'
 
-// Delete single data by primary key value with model class.
-User.softDelete(1);
-
-// Or you can pass object as argument as well.
-User.softDelete({ where: 1 });
-
-// Or you can delete data from an existing model instance.
-const user = await User.find(1)
-user.softDelete()
-
-// Or you can delete single data by primary key value with vuex action.
-store.dispatch('entities/users/softDelete', 1)
-
-// Or you can pass obejct as argument as well.
-store.dispatch('entities/users/softDelete', { where: 1 })
-
-// State after `delete`
-state = {
-  entities: {
-    users: {
-      '1': { id: 1, name: 'John', $isDeleted: true, deleted_at: ... /* JS Date of deletion */ },
-      '2': { id: 1, name: 'Jane' }
-    }
-  }
-}
+VuexORM.use(VuexORMSoftDelete)
 ```
 
-#### By Data Closure
+## Plugins
 
-You can soft-delete by passing a condition on the record:
+Vuex ORM can be extended via plugins to add additional features. Here is a list of available plugins.
 
-```js
-// Initial state.
-let state = {
-    entities: {
-        users: {
-            '1': { id: 1, name: 'John' },
-            '2': { id: 1, name: 'Jane' },
-            '3': { id: 1, name: 'George' }
-        }
-    }
-};
+- [Vuex ORM Axios](https://github.com/vuex-orm/plugin-axios) – The plugin to sync the store against a RESTful API.
+- [Vuex ORM GraphQL](https://github.com/vuex-orm/plugin-graphql) – The plugin to sync the store against a [GraphQL](https://graphql.org) API.
+- [Vuex ORM Search](https://github.com/vuex-orm/plugin-search) – The plugin adds a search() method to filter records using fuzzy search logic from the [Fuse.js](http://fusejs.io).
+- [Vuex ORM Change Flags](https://github.com/vuex-orm/plugin-change-flags) - Vuex ORM plugin for adding IsDirty / IsNew flags to model entities.
 
-// Delete data by closure.
-User.softDelete(record => {
-    return record.id === 1 || record.name === 'Jane';
-});
+## Contribution
 
-// Or with object style.
-User.softDelete({
-    where(record) {
-        return record.id === 1 || record.name === 'Jane';
-    }
-});
+We are excited that you are interested in contributing to Vuex ORM Soft Delete! Anything from raising an issue, submitting an idea of a new feature, or making a pull request is welcome!
 
-// State after `delete`.
-state = {
-    entities: {
-        users: {
-            '1': { id: 1, name: 'John', $isDeleted: true, deleted_at: ... /* JS Date of deletion */ },
-            '2': { id: 1, name: 'Jane', $isDeleted: true, deleted_at: ... /* JS Date of deletion */ },
-            '3': { id: 1, name: 'George' }
-        }
-    }
-};
+### Development
+
+```bash
+yarn build
 ```
 
-### `$isDeleted` flag and `deleted_at` key
+Compile files and generate bundles in `dist` directory.
 
-As you can see on the examples above, soft-deleted entities are marked with a `$isDeleted` flag. Additionnally, the date of soft-deletion is stored in the `deleted_at` attribute.  
-Both can be custom-named through the plugin options.
-
-### Displaying soft-deleted data
-
-Soft-deleted entities are still in the store but will not appear on queries unless you specifically ask to see _trashed_ data:
-
-#### `allTrashed` getter
-
-This new getter returns all soft-deleted entities in the store.
-
-It can be used globally:
-
-```javascript
-// Returns an array of mixed types with all entities
-// currently marked as deleted in the store
-let results = store.getters['entities/allTrashed']();
+```bash
+yarn lint
 ```
 
-or specifically to a type:
+Lint files using a rule of Standard JS.
 
-```javascript
-// Returns an array User entities currently marked as deleted in the store
-let results = store.getters['entities/users/allTrashed']();
+```bash
+yarn test
 ```
 
-#### Query modifiers: `withTrashed()` and `trashed()`
+Run the test using [Jest](https://jestjs.io/).
 
-When building a [Vuex ORM query](https://vuex-orm.github.io/vuex-orm/guide/store/retrieving-data.html#query-builder), soft-deleted entities will be _hidden_ from the result by default.
-
--   **`withTrashed()` modifier**  
-    Shows all entities, wether they are soft-deleted or not
-
-```js
-const users = User.query()
-    .withTrashed()
-    .get(); // Returns all User data in the store
+```bash
+yarn test:watch
 ```
 
--   **`trashed()` modifier**
-    Shows only soft-deleted entities
+Run the test in watch mode.
 
-```js
-const users = User.query()
-    .trashed()
-    .get(); // Returns all soft-deleted User data in the store
+```bash
+yarn coverage
 ```
 
-## Plugin Options
-
-You can override the default flag & key names by setting the corresponding options at plugin initialization.
-
-| Option name           | Description                                   | Default value |
-| --------------------- | --------------------------------------------- | :-----------: |
-| flagName              | Sets the name of the _isDeleted_ flag         | `$isDeleted`  |
-| key                   | Sets the name of the _deleted_at_ key         | `deleted_at`  |
-| exposeFlagsExternally | Adds the flags to the JSON stringified output |    `true`     |
-
-In order to use those options, you can pass them as the second parameter of the `install` call:
-
-```javascript
-VuexORM.use(VuexORMSoftDeletePlugin, {
-    flagName: 'IsMarkedForDeletion',
-    key: 'date_of_deletion',
-    exposeFlagsExternally: true
-});
-```
+Generate test coverage in `coverage` directory.
 
 ## License
 
-[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+Vuex ORM Soft Delete is open-sourced software licensed under the [MIT license](LICENSE).
