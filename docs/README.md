@@ -2,6 +2,8 @@
 
 Vuex ORM Soft Delete plugin adds soft delete capabilities on model entities.
 
+The plugin allows models to be soft deleted or "trashed" without actually removing them from the entity data set. Subsequently, when executing queries, the soft deleted models will be excluded from results. Using special query modifiers, queries can be instructed to inclusively or exclusively retrieve soft deletes.
+
 ## Table of Contents
 
 - Guide

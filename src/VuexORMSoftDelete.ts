@@ -28,17 +28,17 @@ export default class VuexORMSoftDelete {
   actions: Store.Actions
 
   /**
-   * The store action tree.
+   * The store getters tree.
    */
   getters: Store.Getters
 
   /**
-   * The store action tree.
+   * The store root getters tree.
    */
   rootGetters: Store.RootGetters
 
   /**
-   * The store action tree.
+   * The store root action tree.
    */
   rootActions: Store.RootActions
 
