@@ -191,19 +191,19 @@ function Query(context, query) {
      *   false = include soft deletes
      *   null  = exclude soft deletes
      */
-    query.prototype.softDeletesFilter = null;
+    query.prototype.softDeleteSelectFilter = null;
     /**
      * Constraint includes soft deleted models.
      */
     query.prototype.withTrashed = function () {
-        this.softDeletesFilter = false;
+        this.softDeleteSelectFilter = false;
         return this;
     };
     /**
      * Constraint restricts to only soft deleted models.
      */
     query.prototype.onlyTrashed = function () {
-        this.softDeletesFilter = true;
+        this.softDeleteSelectFilter = true;
         return this;
     };
     /**
@@ -259,6 +259,33 @@ function Query(context, query) {
             .get();
     };
     /**
+     * Patch any new queries so that sub queries, such as relation queries,
+     * can respect top level modifiers. For many-to-many relations, due to core
+     * API limitations, we're forced to pass-through intermediate models.
+     */
+    var newQuery = query.prototype.newQuery;
+    query.prototype.newQuery = function (entity) {
+        var patchedQuery = newQuery.call(this, entity);
+        // Only patch queries that are loading relations.
+        var loadables = Object.keys(this.load);
+        if (loadables.length > 0) {
+            patchedQuery.softDeleteSelectFilter = this.softDeleteSelectFilter;
+            if (entity && entity !== this.entity && this.model.hasPivotFields()) {
+                var fields = this.model.pivotFields().reduce(function (fields, field) {
+                    Object.keys(field).filter(function (entity) { return loadables.includes(entity); }).forEach(function (entity) {
+                        fields.push(field[entity].pivot.entity);
+                    });
+                    return fields;
+                }, []);
+                // Release an entity that is an intermediate to a loadable relation.
+                if (fields.includes(entity)) {
+                    patchedQuery.softDeleteSelectFilter = false;
+                }
+            }
+        }
+        return patchedQuery;
+    };
+    /**
      * Fetch all soft deletes from the store and group by entity.
      */
     query.allTrashed = function (store) {
@@ -278,11 +305,11 @@ function Query(context, query) {
         var _this = this;
         return models.filter(function (model) {
             // Only soft deletes
-            if (_this.softDeletesFilter === true) {
+            if (_this.softDeleteSelectFilter === true) {
                 return model.$trashed();
             }
             // Include soft deletes
-            if (_this.softDeletesFilter === false) {
+            if (_this.softDeleteSelectFilter === false) {
                 return models;
             }
             // Exclude soft deletes
