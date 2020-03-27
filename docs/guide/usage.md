@@ -16,7 +16,7 @@ if (user.$trashed()) {
 
 ## Deleting
 
-Models can be soft deleted by calling `softDelete` directly:
+Models can be soft deleted by calling `softDelete` directly and passing a primary key:
 
 ```js
 await User.softDelete(1)
@@ -142,6 +142,30 @@ store.getters['entities/users/allTrashed']()
 ```
 
 This is equivalent to the model query syntax: `User.query().onlyTrashed().get()`
+
+### Relationships
+
+Soft deleted relations respect top level modifiers and retrieving them can be accomplished in the same fashion.
+
+For example, if a soft deleted `User` model has soft deleted `Post` models, you would usually execute the following query chain:
+
+```js
+User.query().with('posts').withTrashed().get()
+```
+
+However, in cases where you may have soft deleted relations belonging to a non-deleted parent, you can use the usual relation closure:
+
+```js
+User.query().with('posts', (query) => {
+  query.onlyTrashed()
+}).get()
+```
+
+Using modifiers in a query chain will impact both parent and nested relations. Using relation closures is the most efficient way of retrieving soft deleted relations in most cases, particularly when using the `onlyTrashed` modifier.
+
+::: tip
+When working with many-to-many relations, intermediate models intentionally ignore any soft delete filtering as these models are not often mutated and serve as a junction between models. This is also due to limitations in the Vuex ORM Query API.
+:::
 
 ## Restoring
 
