@@ -79,7 +79,7 @@ describe('Feature - Relations - Morphed By Many', () => {
     await Video.softDelete(1)
 
     const tag = Tag.query()
-      .with(['posts','videos'])
+      .with(['posts', 'videos'])
       .find(1) as Tag
 
     expect(tag.posts.length).toBe(1)
@@ -95,7 +95,7 @@ describe('Feature - Relations - Morphed By Many', () => {
 
     const tag = Tag.query()
       .withTrashed()
-      .with(['posts','videos'])
+      .with(['posts', 'videos'])
       .find(1) as Tag
 
     expect(tag.posts.length).toBe(2)
@@ -112,7 +112,7 @@ describe('Feature - Relations - Morphed By Many', () => {
 
     const tag = Tag.query()
       .onlyTrashed()
-      .with(['posts','videos'])
+      .with(['posts', 'videos'])
       .find(1) as Tag
 
     expect(tag.posts.length).toBe(1)

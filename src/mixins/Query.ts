@@ -116,9 +116,11 @@ export default function Query(
 
       if (entity && entity !== this.entity && this.model.hasPivotFields()) {
         const fields = this.model.pivotFields().reduce((fields, field) => {
-          Object.keys(field).filter((entity) => loadables.includes(entity)).forEach((entity) => {
-            fields.push(field[entity].pivot.entity)
-          })
+          Object.keys(field)
+            .filter((entity) => loadables.includes(entity))
+            .forEach((entity) => {
+              fields.push(field[entity].pivot.entity)
+            })
           return fields
         }, [] as string[])
 
