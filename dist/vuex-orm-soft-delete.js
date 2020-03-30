@@ -278,7 +278,9 @@
                 patchedQuery.softDeleteSelectFilter = this.softDeleteSelectFilter;
                 if (entity && entity !== this.entity && this.model.hasPivotFields()) {
                     var fields = this.model.pivotFields().reduce(function (fields, field) {
-                        Object.keys(field).filter(function (entity) { return loadables.includes(entity); }).forEach(function (entity) {
+                        Object.keys(field)
+                            .filter(function (entity) { return loadables.includes(entity); })
+                            .forEach(function (entity) {
                             fields.push(field[entity].pivot.entity);
                         });
                         return fields;
