@@ -12,13 +12,13 @@ export default function Query(
    *   false = include soft deletes
    *   null  = exclude soft deletes
    */
-  query.prototype.softDeletesFilter = null
+  query.prototype.softDeleteSelectFilter = null
 
   /**
    * Constraint includes soft deleted models.
    */
   query.prototype.withTrashed = function() {
-    this.softDeletesFilter = false
+    this.softDeleteSelectFilter = false
 
     return this
   }
@@ -27,7 +27,7 @@ export default function Query(
    * Constraint restricts to only soft deleted models.
    */
   query.prototype.onlyTrashed = function() {
-    this.softDeletesFilter = true
+    this.softDeleteSelectFilter = true
 
     return this
   }
@@ -99,6 +99,40 @@ export default function Query(
   }
 
   /**
+   * Patch any new queries so that sub queries, such as relation queries,
+   * can respect top level modifiers. For many-to-many relations, due to core
+   * API limitations, we're forced to pass-through intermediate models.
+   */
+  const newQuery = query.prototype.newQuery
+
+  query.prototype.newQuery = function(entity?) {
+    const patchedQuery = newQuery.call(this, entity)
+
+    // Only patch queries that are loading relations.
+    const loadables = Object.keys(this.load)
+
+    if (loadables.length > 0) {
+      patchedQuery.softDeleteSelectFilter = this.softDeleteSelectFilter
+
+      if (entity && entity !== this.entity && this.model.hasPivotFields()) {
+        const fields = this.model.pivotFields().reduce((fields, field) => {
+          Object.keys(field).filter((entity) => loadables.includes(entity)).forEach((entity) => {
+            fields.push(field[entity].pivot.entity)
+          })
+          return fields
+        }, [] as string[])
+
+        // Release an entity that is an intermediate to a loadable relation.
+        if (fields.includes(entity)) {
+          patchedQuery.softDeleteSelectFilter = false
+        }
+      }
+    }
+
+    return patchedQuery
+  }
+
+  /**
    * Fetch all soft deletes from the store and group by entity.
    */
   query.allTrashed = function(store) {
@@ -121,12 +155,12 @@ export default function Query(
   ) {
     return models.filter((model) => {
       // Only soft deletes
-      if (this.softDeletesFilter === true) {
+      if (this.softDeleteSelectFilter === true) {
         return model.$trashed()
       }
 
       // Include soft deletes
-      if (this.softDeletesFilter === false) {
+      if (this.softDeleteSelectFilter === false) {
         return models
       }
 

@@ -53,7 +53,7 @@ declare module '@vuex-orm/core' {
     /**
      * Filtering mode for the query builder.
      */
-    softDeletesFilter: boolean | null
+    softDeleteSelectFilter: boolean | null
 
     /**
      * Process the model(s) to be soft deleted.
