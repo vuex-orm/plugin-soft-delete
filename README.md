@@ -95,31 +95,6 @@ Join us on our [Slack Channel](https://join.slack.com/t/vuex-orm/shared_invite/e
 
 Although there is the Slack Channel, do not hesitate to open an [issue](https://github.com/vuex-orm/plugin-soft-delete/issues) for any question you might have. We're always more than happy to hear any feedback, and we don't care what kind of form they are.
 
-## Quick Start
-
-Here's a quick start guide to demonstrate how the Soft Delete plugin can be integrated effortlessly.
-
-### Install the plugin
-
-Install the plugin with [npm](https://www.npmjs.com/) or [Yarn](https://yarnpkg.com/). Ensure the latest version of Vuex ORM is installed.
-
-```bash
-npm install @vuex-orm/core @vuex-orm/plugin-soft-delete
-# OR
-yarn add @vuex-orm/core @vuex-orm/plugin-soft-delete
-```
-
-### Register the plugin
-
-Register the plugin using the `VuexORM.use` method. Furthermore, you may configure the plugin with [options](https://vuex-orm.github.io/plugin-soft-delete/guide/options).
-
-```js
-import VuexORM from '@vuex-orm/core'
-import VuexORMSoftDelete from '@vuex-orm/plugin-soft-delete'
-
-VuexORM.use(VuexORMSoftDelete)
-```
-
 ## Plugins
 
 Vuex ORM can be extended via plugins to add additional features. Here is a list of available plugins.
@@ -129,11 +104,24 @@ Vuex ORM can be extended via plugins to add additional features. Here is a list 
 - [Vuex ORM Search](https://github.com/vuex-orm/plugin-search) – The plugin adds a search() method to filter records using fuzzy search logic from the [Fuse.js](http://fusejs.io).
 - [Vuex ORM Change Flags](https://github.com/vuex-orm/plugin-change-flags) - Vuex ORM plugin for adding IsDirty / IsNew flags to model entities.
 
+Also, you can find a list of awesome things related to Vuex ORM at [Awesome Vuex ORM](https://github.com/vuex-orm/awesome-vuex-orm).
+
 ## Contribution
 
-We are excited that you are interested in contributing to Vuex ORM Soft Delete! Anything from raising an issue, submitting an idea of a new feature, or making a pull request is welcome!
+We are excited that you are interested in contributing to Vuex ORM Plugin: Soft Delete! Anything from raising an issue, submitting an idea of a new feature, or making a pull request is welcome! Before submitting your contribution though, please make sure to take a moment and read through the following guidelines.
 
-### Development
+### Pull Request Guidelines
+
+When submitting a new pull request, please make sure to follow these guidelines:
+
+- **For feature requests:** Checkout a topic branch from `dev` branch, and merge back against `dev` branch.
+- **For bug fixes:** Checkout a topic branch from `master` branch, and merge back against `master` branch.
+
+These rules also apply to the documentation. If you're submitting documentation about a new feature that isn't released yet, you must checkout the `dev` branch, but for non-functional updates, such as fixing a typo, you may checkout and commit to the `master` branch.
+
+### Scripts
+
+There are several scripts to help with development.
 
 ```bash
 yarn build
@@ -165,6 +153,12 @@ yarn coverage
 
 Generate test coverage in `coverage` directory.
 
+```bash
+yarn docs
+```
+
+Build and boot documentation server with [VuePress](https://vuepress.vuejs.org/).
+
 ## License
 
-Vuex ORM Soft Delete is open-sourced software licensed under the [MIT license](LICENSE).
+Vuex ORM Plugin: Soft Delete is open-sourced software licensed under the [MIT license](LICENSE).
