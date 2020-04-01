@@ -133,7 +133,7 @@ Compile files and generate bundles in `dist` directory.
 yarn lint
 ```
 
-Lint files using a rule of Standard JS.
+Lint files using [Prettier](https://prettier.io/).
 
 ```bash
 yarn test
@@ -161,4 +161,4 @@ Build and boot documentation server with [VuePress](https://vuepress.vuejs.org/)
 
 ## License
 
-Vuex ORM Plugin: Soft Delete is open-sourced software licensed under the [MIT license](LICENSE).
+Vuex ORM Plugin: Soft Delete is open-sourced software licensed under the [MIT license](./LICENSE).
