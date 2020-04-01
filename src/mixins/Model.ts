@@ -81,7 +81,7 @@ export default function Model(
    */
   model.prototype.softDelete = function(hydrate?) {
     /* istanbul ignore next */
-    if (process.env.NODE_ENV !== 'production') {
+    if (__DEV__) {
       console.warn(
         'The `softDelete` instance method has been deprecated. Please use `$softDelete`.'
       )

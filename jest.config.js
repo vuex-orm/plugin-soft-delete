@@ -1,18 +1,20 @@
 module.exports = {
   preset: 'ts-jest',
-  displayName: 'Vuex ORM Soft Delete',
+  rootDir: __dirname,
+  globals: {
+    __DEV__: true
+  },
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1',
+    '^test/(.*)$': '<rootDir>/test/$1'
+  },
+  testMatch: ['<rootDir>/test/**/*.spec.ts'],
+  testPathIgnorePatterns: ['/node_modules/'],
   coverageDirectory: 'coverage',
   coverageReporters: ['json', 'lcov', 'text-summary', 'clover'],
   collectCoverageFrom: [
     'src/**/*.ts',
     '!src/index.cjs.ts',
     '!src/config/**/*.ts'
-  ],
-  moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1',
-    '^test/(.*)$': '<rootDir>/test/$1'
-  },
-  rootDir: __dirname,
-  testMatch: ['<rootDir>/test/**/*.spec.ts?(x)'],
-  testPathIgnorePatterns: ['/node_modules/']
+  ]
 }
