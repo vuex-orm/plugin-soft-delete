@@ -38,7 +38,7 @@ export default function Query(
    */
   query.prototype.trashed = function() {
     /* istanbul ignore next */
-    if (process.env.NODE_ENV !== 'production') {
+    if (__DEV__) {
       console.warn(
         'The `trashed` method has been deprecated. Please use `onlyTrashed`.'
       )
