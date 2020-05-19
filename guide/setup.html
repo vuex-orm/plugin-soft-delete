@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Setup | Vuex ORM Soft Delete</title>
+    <meta name="description" content="Vuex ORM plugin for adding soft delete feature to model entities.">
+    <meta name="generator" content="VuePress 1.4.0">
+    
+    
+    <link rel="preload" href="/plugin-soft-delete/assets/css/0.styles.9fe017d8.css" as="style"><link rel="preload" href="/plugin-soft-delete/assets/js/app.50844a80.js" as="script"><link rel="preload" href="/plugin-soft-delete/assets/js/2.3d79f8c6.js" as="script"><link rel="preload" href="/plugin-soft-delete/assets/js/10.979e7393.js" as="script"><link rel="prefetch" href="/plugin-soft-delete/assets/js/11.91d62252.js"><link rel="prefetch" href="/plugin-soft-delete/assets/js/12.179d629f.js"><link rel="prefetch" href="/plugin-soft-delete/assets/js/13.adb2f5e8.js"><link rel="prefetch" href="/plugin-soft-delete/assets/js/3.7ca522ad.js"><link rel="prefetch" href="/plugin-soft-delete/assets/js/4.7a4d83b2.js"><link rel="prefetch" href="/plugin-soft-delete/assets/js/5.2e5bfea2.js"><link rel="prefetch" href="/plugin-soft-delete/assets/js/6.ae4c55dd.js"><link rel="prefetch" href="/plugin-soft-delete/assets/js/7.b590ca7d.js"><link rel="prefetch" href="/plugin-soft-delete/assets/js/8.f889a96a.js"><link rel="prefetch" href="/plugin-soft-delete/assets/js/9.87f7b75f.js">
+    <link rel="stylesheet" href="/plugin-soft-delete/assets/css/0.styles.9fe017d8.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/plugin-soft-delete/" class="home-link router-link-active"><!----> <span class="site-name">Vuex ORM Soft Delete</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/plugin-soft-delete/guide/installation.html" class="nav-link">
+  Guide
+</a></div><div class="nav-item"><a href="/plugin-soft-delete/api/model.html" class="nav-link">
+  API Reference
+</a></div><div class="nav-item"><a href="https://github.com/vuex-orm/plugin-soft-delete/releases" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Release Notes
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <a href="https://github.com/vuex-orm/plugin-soft-delete" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/plugin-soft-delete/guide/installation.html" class="nav-link">
+  Guide
+</a></div><div class="nav-item"><a href="/plugin-soft-delete/api/model.html" class="nav-link">
+  API Reference
+</a></div><div class="nav-item"><a href="https://github.com/vuex-orm/plugin-soft-delete/releases" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Release Notes
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <a href="https://github.com/vuex-orm/plugin-soft-delete" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>Guide</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/plugin-soft-delete/guide/installation.html" class="sidebar-link">Installation</a></li><li><a href="/plugin-soft-delete/guide/setup.html" class="active sidebar-link">Setup</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/plugin-soft-delete/guide/usage.html" class="sidebar-link">Usage</a></li><li><a href="/plugin-soft-delete/guide/options.html" class="sidebar-link">Options</a></li><li><a href="/plugin-soft-delete/guide/sponsors.html" class="sidebar-link">Sponsors</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="setup"><a href="#setup" class="header-anchor">#</a> Setup</h1> <p>To install the Soft Delete plugin with Vuex ORM, simply pass the plugin module to <code>VuexORM.use()</code>.</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> VuexORM <span class="token keyword">from</span> <span class="token string">'@vuex-orm/core'</span>
+<span class="token keyword">import</span> VuexORMSoftDelete <span class="token keyword">from</span> <span class="token string">'@vuex-orm/plugin-soft-delete'</span>
+
+VuexORM<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>VuexORMSoftDelete<span class="token punctuation">)</span>
+</code></pre></div><p>Additional options can be passed to configure the plugin.</p> <div class="language-js extra-class"><pre class="language-js"><code>VuexORM<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>VuexORMSoftDelete<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  key<span class="token operator">:</span> <span class="token string">'deleteDate'</span><span class="token punctuation">,</span>
+  flagName<span class="token operator">:</span> <span class="token string">'markedForDeletion'</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre></div><p>See all available <a href="/plugin-soft-delete/guide/options.html">Options</a>.</p> <h3 id="example"><a href="#example" class="header-anchor">#</a> Example</h3> <p>Here is a typical example that demonstrates common setups of Vuex ORM together with the plugin.</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> Vuex <span class="token keyword">from</span> <span class="token string">'vuex'</span>
+<span class="token keyword">import</span> VuexORM <span class="token keyword">from</span> <span class="token string">'@vuex-orm/core'</span>
+<span class="token keyword">import</span> VuexORMSoftDelete <span class="token keyword">from</span> <span class="token string">'@vuex-orm/plugin-soft-delete'</span>
+<span class="token keyword">import</span> User <span class="token keyword">from</span> <span class="token string">'@/models/User'</span>
+
+VuexORM<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>VuexORMSoftDelete<span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> database <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">VuexORM<span class="token punctuation">.</span>Database</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+database<span class="token punctuation">.</span><span class="token function">register</span><span class="token punctuation">(</span>User<span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> store <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vuex<span class="token punctuation">.</span>Store</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  plugins<span class="token operator">:</span> <span class="token punctuation">[</span>VuexORM<span class="token punctuation">.</span><span class="token function">install</span><span class="token punctuation">(</span>database<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> store
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/plugin-soft-delete/guide/installation.html" class="prev">
+        Installation
+      </a></span> <span class="next"><a href="/plugin-soft-delete/guide/usage.html">
+        Usage
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/plugin-soft-delete/assets/js/app.50844a80.js" defer></script><script src="/plugin-soft-delete/assets/js/2.3d79f8c6.js" defer></script><script src="/plugin-soft-delete/assets/js/10.979e7393.js" defer></script>
+  </body>
+</html>
