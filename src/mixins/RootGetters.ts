@@ -13,7 +13,7 @@ export default function RootGetters(
   /**
    * Get all trashed records belonging to an entity.
    */
-  rootGetters.allTrashed = function(this: Store<any>, _state: RootState) {
+  rootGetters.allTrashed = function (this: Store<any>, _state: RootState) {
     return (entity?: string): Collection | Collections => {
       if (entity) {
         return new context.query(this, entity).allTrashed()

@@ -17,7 +17,7 @@ export default function Query(
   /**
    * Constraint includes soft deleted models.
    */
-  query.prototype.withTrashed = function() {
+  query.prototype.withTrashed = function () {
     this.softDeleteSelectFilter = false
 
     return this
@@ -26,7 +26,7 @@ export default function Query(
   /**
    * Constraint restricts to only soft deleted models.
    */
-  query.prototype.onlyTrashed = function() {
+  query.prototype.onlyTrashed = function () {
     this.softDeleteSelectFilter = true
 
     return this
@@ -36,7 +36,7 @@ export default function Query(
    * Deprecated alias method for `onlyTrashed`.
    * @deprecated since v1.2.0
    */
-  query.prototype.trashed = function() {
+  query.prototype.trashed = function () {
     /* istanbul ignore next */
     if (__DEV__) {
       console.warn(
@@ -50,7 +50,7 @@ export default function Query(
   /**
    * Process the model(s) to be soft deleted.
    */
-  query.prototype.softDelete = function(condition: any) {
+  query.prototype.softDelete = function (condition: any) {
     const { key, flagName, mutator } = context.createConfig(
       this.model.softDeleteConfig
     )
@@ -92,10 +92,8 @@ export default function Query(
   /**
    * Fetch all soft deletes from the store.
    */
-  query.prototype.allTrashed = function() {
-    return this.newQuery()
-      .onlyTrashed()
-      .get()
+  query.prototype.allTrashed = function () {
+    return this.newQuery().onlyTrashed().get()
   }
 
   /**
@@ -105,7 +103,7 @@ export default function Query(
    */
   const newQuery = query.prototype.newQuery
 
-  query.prototype.newQuery = function(entity?) {
+  query.prototype.newQuery = function (entity?) {
     const patchedQuery = newQuery.call(this, entity)
 
     // Only patch queries that are loading relations.
@@ -137,7 +135,7 @@ export default function Query(
   /**
    * Fetch all soft deletes from the store and group by entity.
    */
-  query.allTrashed = function(store) {
+  query.allTrashed = function (store) {
     const database = store.$db()
     const models = database.models()
 
@@ -151,7 +149,7 @@ export default function Query(
    * Global select hook prevents soft deleted models from being selected unless
    * queries are explicity chained with `withTrashed` or `onlyTrashed`.
    */
-  query.on('beforeSelect', function<T extends BaseQuery>(
+  query.on('beforeSelect', function <T extends BaseQuery>(
     this: T,
     models: Data.Collection
   ) {

@@ -12,7 +12,7 @@ export default function RootActions(
   /**
    * Soft delete records and persist the store.
    */
-  rootActions.softDelete = async function(
+  rootActions.softDelete = async function (
     this: Store<any>,
     _context: RootActionContext,
     payload: any

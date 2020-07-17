@@ -8,14 +8,14 @@ export default function Model(
   /**
    * Soft delete model(s) matching a condition.
    */
-  model.softDelete = function(payload: any) {
+  model.softDelete = function (payload: any) {
     return this.dispatch('softDelete', payload)
   }
 
   /**
    * Soft delete a model instance.
    */
-  model.prototype.$softDelete = async function(hydrate?) {
+  model.prototype.$softDelete = async function (hydrate?) {
     const model = await this.$dispatch(
       'softDelete',
       this.$self().getIdFromRecord(this)
@@ -40,7 +40,7 @@ export default function Model(
   /**
    * Restore a model instance.
    */
-  model.prototype.$restore = async function(hydrate?) {
+  model.prototype.$restore = async function (hydrate?) {
     const { key, flagName } = context.createConfig(
       this.$self().softDeleteConfig
     )
@@ -68,7 +68,7 @@ export default function Model(
   /**
    * Determine if the model instance has been soft deleted.
    */
-  model.prototype.$trashed = function() {
+  model.prototype.$trashed = function () {
     const { flagName } = context.createConfig(this.$self().softDeleteConfig)
 
     return this[flagName] === true
@@ -79,7 +79,7 @@ export default function Model(
    * This method is deprecated and will warn users until retired.
    * @deprecated since v1.2.0
    */
-  model.prototype.softDelete = function(hydrate?) {
+  model.prototype.softDelete = function (hydrate?) {
     /* istanbul ignore next */
     if (__DEV__) {
       console.warn(
@@ -95,7 +95,7 @@ export default function Model(
    */
   const $fields = model.prototype.$fields
 
-  model.prototype.$fields = function() {
+  model.prototype.$fields = function () {
     const fields = $fields.call(this)
 
     const { key, flagName } = context.createConfig(
@@ -114,7 +114,7 @@ export default function Model(
    */
   const $toJson = model.prototype.$toJson
 
-  model.prototype.$toJson = function() {
+  model.prototype.$toJson = function () {
     const toJson = $toJson.call(this)
 
     const config = context.createConfig(this.$self().softDeleteConfig)
