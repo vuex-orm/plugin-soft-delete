@@ -84,15 +84,11 @@ describe('Feature - Relations - Morph To Many', () => {
   it('can resolve queries without deleted relations (default)', async () => {
     await Tag.softDelete(1)
 
-    const post = Post.query()
-      .with('tags')
-      .find(1) as Post
+    const post = Post.query().with('tags').find(1) as Post
 
     expect(post.tags.length).toBe(1)
 
-    const video = Video.query()
-      .with('tags')
-      .find(1) as Video
+    const video = Video.query().with('tags').find(1) as Video
 
     expect(video.tags.length).toBe(1)
   })
@@ -100,19 +96,13 @@ describe('Feature - Relations - Morph To Many', () => {
   it('can include deleted relations using `withTrashed` clause', async () => {
     await Tag.softDelete(1)
 
-    const post = Post.query()
-      .withTrashed()
-      .with('tags')
-      .find(1) as Post
+    const post = Post.query().withTrashed().with('tags').find(1) as Post
 
     expect(post.tags.length).toBe(2)
     expect(post.tags[0].$trashed()).toBe(true)
     expect(post.tags[1].$trashed()).toBe(false)
 
-    const video = Video.query()
-      .withTrashed()
-      .with('tags')
-      .find(1) as Video
+    const video = Video.query().withTrashed().with('tags').find(1) as Video
 
     expect(video.tags.length).toBe(2)
     expect(video.tags[0].$trashed()).toBe(true)
@@ -122,18 +112,12 @@ describe('Feature - Relations - Morph To Many', () => {
   it('can resolve only deleted relations using `onlyTrashed` clause', async () => {
     await Tag.softDelete(1)
 
-    const post = Post.query()
-      .onlyTrashed()
-      .with('tags')
-      .find(1) as Post
+    const post = Post.query().onlyTrashed().with('tags').find(1) as Post
 
     expect(post.tags.length).toBe(1)
     expect(post.tags[0].$trashed()).toBe(true)
 
-    const video = Video.query()
-      .onlyTrashed()
-      .with('tags')
-      .find(1) as Video
+    const video = Video.query().onlyTrashed().with('tags').find(1) as Video
 
     expect(video.tags.length).toBe(1)
     expect(video.tags[0].$trashed()).toBe(true)

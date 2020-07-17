@@ -62,9 +62,7 @@ describe('Feature - Relations - Has Many Through', () => {
   it('can resolve queries without deleted relations (default)', async () => {
     await Post.softDelete(1)
 
-    const country = Country.query()
-      .with('posts')
-      .find(1) as Country
+    const country = Country.query().with('posts').find(1) as Country
 
     expect(country.posts.length).toBe(1)
     expect(country.posts[0].$trashed()).toBe(false)

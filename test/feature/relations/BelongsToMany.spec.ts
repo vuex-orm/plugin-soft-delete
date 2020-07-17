@@ -52,9 +52,7 @@ describe('Feature - Relations - Belongs To Many', () => {
   it('can resolve queries without deleted relation (default)', async () => {
     await Role.softDelete(3)
 
-    const users = User.query()
-      .with('roles')
-      .findIn([1, 2]) as User[]
+    const users = User.query().with('roles').findIn([1, 2]) as User[]
 
     expect(users[0].roles.length).toBe(1)
     expect(users[0].roles[0].$trashed()).toBe(false)

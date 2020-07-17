@@ -283,9 +283,7 @@ describe('Feature - Model - Delete', () => {
 
     await User.insert({ data: { id: 1, posts: [{ id: 2 }, { id: 3 }] } })
 
-    const user = User.query()
-      .with('posts')
-      .find(1) as User
+    const user = User.query().with('posts').find(1) as User
 
     expect(user.$isDeleted).toBe(false)
     expect(user.deleted_at).toBe(null)
@@ -337,9 +335,7 @@ describe('Feature - Model - Delete', () => {
       data: { id: 1, name: 'John Doe', post: [{ id: 2 }, { id: 3 }] }
     })
 
-    const user = User.query()
-      .with('post')
-      .find(1) as User
+    const user = User.query().with('post').find(1) as User
 
     expect(user.name).toBe('John Doe')
     expect(user.post).toBeInstanceOf(Post)

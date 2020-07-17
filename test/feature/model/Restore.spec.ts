@@ -111,9 +111,7 @@ describe('Feature - Model - Restore', () => {
       }
     })
 
-    const user = User.query()
-      .with('post')
-      .find(1) as User
+    const user = User.query().with('post').find(1) as User
 
     expect(user.$isDeleted).toBe(true)
     expect(user.deleted_at).toBe(mockDate)
@@ -171,9 +169,7 @@ describe('Feature - Model - Restore', () => {
       }
     })
 
-    const user = User.query()
-      .with('post')
-      .find(1) as User
+    const user = User.query().with('post').find(1) as User
 
     expect(user.$isDeleted).toBe(true)
     expect(user.deleted_at).toBe(mockDate)

@@ -40,9 +40,7 @@ describe('Feature - Relations - Belongs To', () => {
   it('can resolve queries without deleted relations (default)', async () => {
     await User.softDelete(1)
 
-    const post = Post.query()
-      .with('user')
-      .find(1) as Post
+    const post = Post.query().with('user').find(1) as Post
 
     expect(post.user).toBeNull()
   })
@@ -50,10 +48,7 @@ describe('Feature - Relations - Belongs To', () => {
   it('can include deleted relations using `withTrashed` clause', async () => {
     await User.softDelete(1)
 
-    const post = Post.query()
-      .withTrashed()
-      .with('user')
-      .find(1) as Post
+    const post = Post.query().withTrashed().with('user').find(1) as Post
 
     expect(post.user).toBeInstanceOf(User)
     expect(post.user.$trashed()).toBe(true)
@@ -62,10 +57,7 @@ describe('Feature - Relations - Belongs To', () => {
   it('can resolve only deleted relations using `onlyTrashed` clause', async () => {
     await User.softDelete(1)
 
-    const post = Post.query()
-      .onlyTrashed()
-      .with('user')
-      .find(1) as Post
+    const post = Post.query().onlyTrashed().with('user').find(1) as Post
 
     expect(post.user).toBeInstanceOf(User)
     expect(post.user.$trashed()).toBe(true)

@@ -62,9 +62,7 @@ describe('Feature - Relations - Morph To', () => {
   it('can resolve queries without deleted relations (default)', async () => {
     await Post.softDelete(1)
 
-    const tags = Tag.query()
-      .with('taggable')
-      .findIn([1, 2]) as Tag[]
+    const tags = Tag.query().with('taggable').findIn([1, 2]) as Tag[]
 
     expect(tags[0].taggable_type).toBe('posts')
     expect(tags[0].taggable).toBeNull()

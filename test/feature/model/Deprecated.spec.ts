@@ -89,9 +89,7 @@ describe('Feature - Model - Deprecated', () => {
 
     await User.softDelete(1)
 
-    const users = User.query()
-      .trashed()
-      .get()
+    const users = User.query().trashed().get()
 
     expect(spyOnWarn).toHaveBeenCalled()
     expect(users.length).toBe(1)

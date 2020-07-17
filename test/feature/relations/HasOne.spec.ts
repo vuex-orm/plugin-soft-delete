@@ -40,9 +40,7 @@ describe('Feature - Relations - Has One', () => {
   it('can resolve queries without deleted relations (default)', async () => {
     await Post.softDelete(3)
 
-    const users = User.query()
-      .with('post')
-      .findIn([1, 2]) as User[]
+    const users = User.query().with('post').findIn([1, 2]) as User[]
 
     expect(users[0].post).toBeNull()
     expect(users[1].post).toBeInstanceOf(Post)

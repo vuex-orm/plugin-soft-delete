@@ -37,9 +37,7 @@ describe('Feature - Model - Retrieve', () => {
 
     await User.softDelete(1)
 
-    const users = User.query()
-      .withTrashed()
-      .get()
+    const users = User.query().withTrashed().get()
 
     expect(users.length).toBe(3)
     expect(users[0].$isDeleted).toBe(true)
@@ -52,9 +50,7 @@ describe('Feature - Model - Retrieve', () => {
 
     await User.softDelete(1)
 
-    const users = User.query()
-      .onlyTrashed()
-      .get()
+    const users = User.query().onlyTrashed().get()
 
     expect(users.length).toBe(1)
     expect(users[0].id).toBe(1)
@@ -92,15 +88,11 @@ describe('Feature - Model - Retrieve', () => {
 
     await User.softDelete(1)
 
-    const user = User.query()
-      .whereId(1)
-      .first()
+    const user = User.query().whereId(1).first()
 
     expect(user).toBe(null)
 
-    const users = User.query()
-      .whereIdIn([1, 2])
-      .get()
+    const users = User.query().whereIdIn([1, 2]).get()
 
     expect(users.length).toBe(1)
     expect(users[0].$isDeleted).toBe(false)
@@ -111,9 +103,7 @@ describe('Feature - Model - Retrieve', () => {
 
     await User.softDelete(1)
 
-    const users = User.query()
-      .withTrashed()
-      .get()
+    const users = User.query().withTrashed().get()
 
     expect(users.length).toBe(2)
     expect(users[0].$trashed()).toBe(true)
